@@ -34,29 +34,4 @@ public class Main {
 		SpringApplication.run(Main.class, args);
 	}
 
-//	@Override
-//	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-//		return builder.sources(Main.class);
-//	}
-
-	@RequestMapping("/")
-	String index() {
-		return "home/home";
-	}
-
-	@RequestMapping("/hello")
-	@ResponseBody
-	String hello() {
-		return "Hello from response body";
-	}
-	
-	@Bean
-	public ViewResolver viewResolver() {
-		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-		viewResolver.setViewClass(JstlView.class);
-		viewResolver.setPrefix("/WEB-INF/views/");
-		viewResolver.setSuffix(".jsp");
-		return viewResolver;
-	}
-
 }
