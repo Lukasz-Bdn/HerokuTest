@@ -1,0 +1,1 @@
+web: java -jar target/HerokuTest2-1.0.jar
