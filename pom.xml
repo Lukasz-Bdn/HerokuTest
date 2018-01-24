@@ -16,15 +16,15 @@
 	<name>HerokuTest2 Maven Webapp</name>
 
 	<properties>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<java.compiler.source>1.8</java.compiler.source>
+		<java.compiler.target>1.8</java.compiler.target>
+		<org.springframework-version>4.3.9.RELEASE</org.springframework-version>
+		<org.hibernate-version>5.2.9.Final</org.hibernate-version>
 		<java.version>1.8</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
-		<webjars-bootstrap.version>3.3.6</webjars-bootstrap.version>
-		<webjars-jquery-ui.version>1.11.4</webjars-jquery-ui.version>
-		<webjars-jquery.version>2.2.4</webjars-jquery.version>
-		<thymeleaf.version>3.0.2.RELEASE</thymeleaf.version>
-
 	</properties>
 
 	<dependencies>
@@ -63,6 +63,12 @@
 			<scope>runtime</scope>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/org.mindrot/jbcrypt -->
+		<dependency>
+			<groupId>org.mindrot</groupId>
+			<artifactId>jbcrypt</artifactId>
+			<version>0.4</version>
+		</dependency>
 
 		<dependency>
 			<groupId>junit</groupId>
@@ -70,6 +76,7 @@
 			<version>3.8.1</version>
 			<scope>test</scope>
 		</dependency>
+
 	</dependencies>
 
 
