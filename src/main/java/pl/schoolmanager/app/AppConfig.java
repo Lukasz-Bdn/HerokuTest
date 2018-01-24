@@ -25,23 +25,39 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
-@ComponentScan(basePackages = { "pl.schoolmanager.bean", "pl.schoolmanager.controller",
-		"pl.schoolmanager.entity" })
+@ComponentScan(basePackages = { "pl.schoolmanager.bean", "pl.schoolmanager.controller", "pl.schoolmanager.entity" })
 @EnableWebMvc
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = { "pl.schoolmanager.repository" })
-//@Import({ SecurityConfig.class })
+// @Import({ SecurityConfig.class })
 public class AppConfig extends WebMvcConfigurerAdapter {
 
-	@Bean(name = "dataSource")
-	public DriverManagerDataSource dataSource() {
-		DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
-		driverManagerDataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		driverManagerDataSource.setUrl("jdbc:mysql://localhost:3306/schoolmanager2");
-		driverManagerDataSource.setUsername("root");
-		driverManagerDataSource.setPassword("coderslab");
-		return driverManagerDataSource;
-	}
+	 @Bean(name = "dataSource")
+	 public DriverManagerDataSource dataSource() {
+	 DriverManagerDataSource driverManagerDataSource = new
+	 DriverManagerDataSource();
+	 driverManagerDataSource.setDriverClassName("com.mysql.jdbc.Driver");
+	 driverManagerDataSource.setUrl("jdbc:mysql://localhost:3306/schoolmanager2");
+	 driverManagerDataSource.setUsername("root");
+	 driverManagerDataSource.setPassword("coderslab");
+	 return driverManagerDataSource;
+	 }
+
+//	@Bean(name = "dataSource")
+//	public BasicDataSource dataSource() throws URISyntaxException {
+//		URI dbUri = new URI(System.getenv("CLEARDB_DATABASE_URL"));
+//
+//		String username = dbUri.getUserInfo().split(":")[0];
+//		String password = dbUri.getUserInfo().split(":")[1];
+//		String dbUrl = "jdbc:mysql://" + dbUri.getHost() + dbUri.getPath();
+//
+//		BasicDataSource basicDataSource = new BasicDataSource();
+//		basicDataSource.setUrl(dbUrl);
+//		basicDataSource.setUsername(username);
+//		basicDataSource.setPassword(password);
+//
+//		return basicDataSource;
+//	}
 
 	@Bean
 	public ViewResolver viewResolver() {
