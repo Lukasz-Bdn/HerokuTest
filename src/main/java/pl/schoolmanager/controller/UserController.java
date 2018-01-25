@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.schoolmanager.bean.SessionManager;
-import pl.schoolmanager.entity.SchoolUser;
+import pl.schoolmanager.entity.User;
 import pl.schoolmanager.entity.UserRole;
 import pl.schoolmanager.repository.UserRepository;
 import pl.schoolmanager.repository.UserRoleRepository;
@@ -37,22 +37,22 @@ public class UserController {
 	// CREATE
 	@GetMapping("/create")
 	public String createUser(Model m) {
-		m.addAttribute("user", new SchoolUser());
+		m.addAttribute("user", new User());
 		return "user/new_user";
 	}
 
 	@PostMapping("/create")
-	public String createUserPost(@Validated(NewUsernameValidator.class) SchoolUser schoolUser, BindingResult bindingResult, 
+	public String createUserPost(@Validated(NewUsernameValidator.class) User user, BindingResult bindingResult, 
 								Model m) {
 		if (bindingResult.hasErrors()) {
 			return "redirect:/user/new_user";
 		} else {
 			UserRole userRole = new UserRole();
-			schoolUser.setEnabled(true);
-			userRole.setUsername(schoolUser.getUsername());
-			userRole.setSchoolUser(schoolUser);
+			user.setEnabled(true);
+			userRole.setUsername(user.getUsername());
+			userRole.setUser(user);
 			userRole.setUserRole("ROLE_USER");
-			this.userRepo.save(schoolUser);
+			this.userRepo.save(user);
 			this.userRoleRepo.save(userRole);
 			return "redirect:/user/all";
 		}
@@ -61,63 +61,63 @@ public class UserController {
 	// READ
 	@GetMapping("/view/{userId}")
 	public String viewUser(Model m, @PathVariable long userId) {
-		SchoolUser schoolUser = this.userRepo.findOne(userId);
-		m.addAttribute("user", schoolUser);
+		User user = this.userRepo.findOne(userId);
+		m.addAttribute("user", user);
 		return "user/show_user";
 	}
 
 	// UPDATE
 	@GetMapping("/update/{userId}")
 	public String updateUserRole(Model m, @PathVariable long userId) {
-		SchoolUser schoolUser = this.userRepo.findOne(userId);
-		m.addAttribute("user", schoolUser);
+		User user = this.userRepo.findOne(userId);
+		m.addAttribute("user", user);
 		HttpSession session = SessionManager.session();
-		session.setAttribute("password", schoolUser.getPassword());
+		session.setAttribute("password", user.getPassword());
 		return "user/edit_user";
 	}
 
 	@PostMapping("/update/{id}")
 	@Transactional
-	public String updateUserPost(@Validated(EditUsernameValidator.class) @ModelAttribute SchoolUser schoolUser, 
+	public String updateUserPost(@Validated(EditUsernameValidator.class) @ModelAttribute User user, 
 			BindingResult bindingResult, @PathVariable long id) {
 		if (bindingResult.hasErrors()) {
 			return "user/edit_user";
 		}
 		HttpSession session = SessionManager.session();
-		schoolUser.setPasswordEncrypted(session.getAttribute("password").toString());
+		user.setPasswordEncrypted(session.getAttribute("password").toString());
 		session.setAttribute("password", null);
-		this.userRepo.save(schoolUser);
-		this.userRoleRepo.updateWithUsernameByUserId(id, schoolUser.getUsername());
+		this.userRepo.save(user);
+		this.userRoleRepo.updateWithUsernameByUserId(id, user.getUsername());
 		return "redirect:/user/all";
 	}
 	
 	//CHANGE USER PASSWORD
 	@GetMapping("/changepassword/{userId}")
 	public String changePassword(@PathVariable long userId, Model m) {
-		SchoolUser schoolUser = userRepo.findOne(userId);
-		m.addAttribute("user", schoolUser);
+		User user = userRepo.findOne(userId);
+		m.addAttribute("user", user);
 		return "user/change_pass";
 	}
 	
 	@PostMapping("/changepassword/{userId}")
 	public String changePasswordPost(@RequestParam("password1") String password1, Model m,
 									@RequestParam("password2") String password2, @PathVariable long userId) {
-		SchoolUser schoolUser = userRepo.findOne(userId);
+		User user = userRepo.findOne(userId);
 		if (!password1.equals(password2)) {
 			m.addAttribute("msg", "Both passwords must match!");
-			m.addAttribute("user", schoolUser);
+			m.addAttribute("user", user);
 			return "user/change_pass";
 		}
-		schoolUser.setPassword(password1);
-		userRepo.save(schoolUser);
+		user.setPassword(password1);
+		userRepo.save(user);
 		return "redirect:/user/all";
 	}
 
 	// DELETE
 	@GetMapping("/delete/{userId}")
 	public String deleteUser(@PathVariable long userId, Model m) {
-		SchoolUser schoolUser = this.userRepo.findOne(userId);
-		m.addAttribute("user", schoolUser);
+		User user = this.userRepo.findOne(userId);
+		m.addAttribute("user", user);
 		return "user/confirm_delete";
 	}
 	
@@ -136,7 +136,7 @@ public class UserController {
 	
 	//Model Attributes
 	@ModelAttribute("availableUsers")
-	public List<SchoolUser> getUsers() {
+	public List<User> getUsers() {
 		return this.userRepo.findAll();
 	}
 	

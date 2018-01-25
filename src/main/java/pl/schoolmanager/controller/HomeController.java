@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import pl.schoolmanager.entity.SchoolUser;
+import pl.schoolmanager.entity.User;
 import pl.schoolmanager.entity.UserRole;
 import pl.schoolmanager.repository.UserRepository;
 import pl.schoolmanager.repository.UserRoleRepository;
@@ -56,26 +56,26 @@ public class HomeController {
 	
 	@GetMapping("register")
 	public String registerGet(Model m) {
-		m.addAttribute("user", new SchoolUser());
+		m.addAttribute("user", new User());
 		return "home/register";
 	}
 	
 	@PostMapping("register")
 	@Transactional
-	public String registerPost(@Valid @ModelAttribute SchoolUser schoolUser, BindingResult bindingResult, Model m) {
+	public String registerPost(@Valid @ModelAttribute User user, BindingResult bindingResult, Model m) {
 		if (bindingResult.hasErrors()) {
 			return "redirect:register";
 		}
-		if (!schoolUser.isPasswordCorrent(schoolUser.getConfirmPassword())) {
+		if (!user.isPasswordCorrent(user.getConfirmPassword())) {
 			m.addAttribute("msg", "Please make sure that both passwords match!");
 			return "home/register";
 		}
 		UserRole userRole = new UserRole();
-		schoolUser.setEnabled(true);
-		userRole.setUsername(schoolUser.getUsername());
-		userRole.setSchoolUser(schoolUser);
+		user.setEnabled(true);
+		userRole.setUsername(user.getUsername());
+		userRole.setUser(user);
 		userRole.setUserRole("ROLE_USER");
-		this.userRepo.save(schoolUser);
+		this.userRepo.save(user);
 		this.userRoleRepo.save(userRole);
 		return "redirect:/login";
 	}

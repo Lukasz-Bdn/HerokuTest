@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import pl.schoolmanager.bean.SessionManager;
 import pl.schoolmanager.entity.School;
-import pl.schoolmanager.entity.SchoolUser;
 import pl.schoolmanager.entity.Student;
+import pl.schoolmanager.entity.User;
 import pl.schoolmanager.entity.UserRole;
 import pl.schoolmanager.repository.MessageRepository;
 import pl.schoolmanager.repository.SchoolRepository;
@@ -71,12 +71,12 @@ public class StudentController {
 		if (bindingResult.hasErrors()) {
 			return "student/user_new_student";
 		}
-		SchoolUser user = getLoggedUser();
+		User user = getLoggedUser();
 		UserRole userRole = new UserRole();
 		userRole.setUsername(user.getUsername());
 		userRole.setUserRole("ROLE_STUDENT");
 		userRole.setSchool(student.getSchool());
-		userRole.setSchoolUser(user);
+		userRole.setUser(user);
 		student.setUserRole(userRole);
 		this.studentRepository.save(student);
 		HttpSession s = SessionManager.session();
@@ -98,7 +98,7 @@ public class StudentController {
 		if (bindingResult.hasErrors()) {
 			return "student/user_student";
 		}
-		SchoolUser user = getLoggedUser();
+		User user = getLoggedUser();
 		Student thisStudent = null;
 		UserRole thisUserRole = null;
 		List<UserRole> userRoles = user.getUserRoles();
@@ -165,7 +165,7 @@ public class StudentController {
 	}
 
 	// Additional methods
-	private SchoolUser getLoggedUser() {
+	private User getLoggedUser() {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String username = ((org.springframework.security.core.userdetails.User) principal).getUsername();
 		return this.userRepo.findOneByUsername(username);
@@ -186,7 +186,7 @@ public class StudentController {
 
 	@ModelAttribute("userSchools")
 	public List<School> userSchools() {
-		SchoolUser user = getLoggedUser();
+		User user = getLoggedUser();
 		List<School> schools = new ArrayList<>();
 		List<UserRole> roles = user.getUserRoles();
 		for (UserRole userRole : roles) {

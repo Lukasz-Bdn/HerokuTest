@@ -13,9 +13,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.schoolmanager.entity.School;
-import pl.schoolmanager.entity.SchoolUser;
+import pl.schoolmanager.entity.User;
 import pl.schoolmanager.entity.UserRole;
 import pl.schoolmanager.repository.SchoolRepository;
 import pl.schoolmanager.repository.UserRepository;
@@ -35,7 +36,7 @@ public class UserRoleController {
 	// CREATE
 	@GetMapping("/create/{userId}")
 	public String createUserRole(Model m, @PathVariable long userId) {
-		SchoolUser user = this.userRepo.findOne(userId);
+		User user = this.userRepo.findOne(userId);
 		m.addAttribute("user", user);
 		m.addAttribute("userRole", new UserRole());
 		return "userrole/new_userrole";
@@ -48,8 +49,8 @@ public class UserRoleController {
 		if (bindingResult.hasErrors()) {
 			return "userrole/new_userrole";
 		}
-		SchoolUser user = userRepo.findOne(userId);
-		userRole.setSchoolUser(user);
+		User user = userRepo.findOne(userId);
+		userRole.setUser(user);
 		userRole.setUsername(user.getUsername());
 		userRoleRepo.save(userRole);
 		return "redirect:/user/all";
@@ -85,7 +86,7 @@ public class UserRoleController {
 	@GetMapping("/delete/{userRoleId}")
 	public String deleteUserRole(@PathVariable long userRoleId, Model m) {
 		UserRole userRoleToDelete = userRoleRepo.findOne(userRoleId);
-		SchoolUser user = userRoleToDelete.getSchoolUser();
+		User user = userRoleToDelete.getUser();
 		m.addAttribute("userRoleToDelete", userRoleToDelete);
 		m.addAttribute("user", user);
 		return "userrole/confirm_delete";

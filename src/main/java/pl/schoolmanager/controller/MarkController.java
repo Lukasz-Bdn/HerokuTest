@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.schoolmanager.entity.Mark;
-import pl.schoolmanager.entity.SchoolUser;
 import pl.schoolmanager.entity.Student;
 import pl.schoolmanager.entity.Subject;
+import pl.schoolmanager.entity.User;
 import pl.schoolmanager.repository.MarkRepository;
 import pl.schoolmanager.repository.MessageRepository;
 import pl.schoolmanager.repository.StudentRepository;
@@ -128,7 +128,7 @@ public class MarkController {
 		return this.messageRepository.findAllByReceiverIdAndChecked(getLoggedUser().getId(), 0).size();
 	}
 	
-	private SchoolUser getLoggedUser() {
+	private User getLoggedUser() {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String username = ((org.springframework.security.core.userdetails.User) principal).getUsername();
 		return this.userRepository.findOneByUsername(username);

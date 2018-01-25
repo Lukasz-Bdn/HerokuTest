@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import pl.schoolmanager.entity.SchoolUser;
 import pl.schoolmanager.entity.Subject;
+import pl.schoolmanager.entity.User;
 import pl.schoolmanager.repository.MessageRepository;
 import pl.schoolmanager.repository.SubjectRepository;
 import pl.schoolmanager.repository.UserRepository;
@@ -111,7 +111,7 @@ public class SubjectController {
 		return this.messageRepository.findAllByReceiverIdAndChecked(getLoggedUser().getId(), 0).size();
 	}
 	
-	private SchoolUser getLoggedUser() {
+	private User getLoggedUser() {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String username = ((org.springframework.security.core.userdetails.User) principal).getUsername();
 		return this.userRepository.findOneByUsername(username);

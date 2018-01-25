@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import pl.schoolmanager.entity.School;
 import pl.schoolmanager.entity.SchoolAdmin;
-import pl.schoolmanager.entity.SchoolUser;
 import pl.schoolmanager.entity.Student;
 import pl.schoolmanager.entity.Teacher;
+import pl.schoolmanager.entity.User;
 import pl.schoolmanager.entity.UserRole;
 import pl.schoolmanager.repository.SchoolAdminRepository;
 import pl.schoolmanager.repository.SchoolRepository;
@@ -48,16 +48,16 @@ public class MockDbController {
 		this.schoolRepo.save(school4);
 		this.schoolRepo.save(school5);
 
-		SchoolUser admin111 = new SchoolUser("admin111", "admin111", "admin111@wp.pl", "Adam", "Adminowicz",true);
-		SchoolUser user111 = new SchoolUser("user111", "user111", "user111@wp.pl", "Jan", "Niezbedny",true);
-		SchoolUser user112 = new SchoolUser("user112", "user112", "user112@wp.pl", "Napoleon", "Bonaparte",true);
-		SchoolUser user113 = new SchoolUser("user113", "user113", "user113@wp.pl", "Adas", "Miauczynski",true);
-		SchoolUser user114 = new SchoolUser("user114", "user114", "user114@wp.pl", "Jessica", "Johnson",true);
-		SchoolUser user115 = new SchoolUser("user115", "user115", "user115@wp.pl", "Lara", "Palmer",true);
-		SchoolUser user116 = new SchoolUser("user116", "user116", "user116@wp.pl", "Vincent", "Van Gogh",true);
-		SchoolUser user117 = new SchoolUser("user117", "user117", "user117@wp.pl", "Mona", "Lisa",true);
-		SchoolUser user118 = new SchoolUser("user118", "user118", "user118@wp.pl", "Julius", "Caesar",true);
-		SchoolUser user119 = new SchoolUser("user119", "user119", "user119@wp.pl", "Phillip", "Morris",true);
+		User admin111 = new User("admin111", "admin111", "admin111@wp.pl", "Adam", "Adminowicz",true);
+		User user111 = new User("user111", "user111", "user111@wp.pl", "Jan", "Niezbedny",true);
+		User user112 = new User("user112", "user112", "user112@wp.pl", "Napoleon", "Bonaparte",true);
+		User user113 = new User("user113", "user113", "user113@wp.pl", "Adas", "Miauczynski",true);
+		User user114 = new User("user114", "user114", "user114@wp.pl", "Jessica", "Johnson",true);
+		User user115 = new User("user115", "user115", "user115@wp.pl", "Lara", "Palmer",true);
+		User user116 = new User("user116", "user116", "user116@wp.pl", "Vincent", "Van Gogh",true);
+		User user117 = new User("user117", "user117", "user117@wp.pl", "Mona", "Lisa",true);
+		User user118 = new User("user118", "user118", "user118@wp.pl", "Julius", "Caesar",true);
+		User user119 = new User("user119", "user119", "user119@wp.pl", "Phillip", "Morris",true);
 
 		this.userRepo.save(admin111);
 		this.userRepo.save(user111);

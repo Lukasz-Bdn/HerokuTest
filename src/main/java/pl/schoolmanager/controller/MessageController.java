@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import pl.schoolmanager.entity.Message;
-import pl.schoolmanager.entity.SchoolUser;
+import pl.schoolmanager.entity.User;
 import pl.schoolmanager.repository.MessageRepository;
 import pl.schoolmanager.repository.UserRepository;
 
@@ -48,7 +48,7 @@ public class MessageController {
 		if (bindingResult.hasErrors()) {
 			return "message/new_message";
 		}
-		SchoolUser receiver = this.userRepository.findOneByEmail(message.getReceiverEmail());
+		User receiver = this.userRepository.findOneByEmail(message.getReceiverEmail());
 		if (receiver == null) {
 			m.addAttribute("errorMessage", "User with this e-mail doesn't exist in database");
 			return "message/new_message";
@@ -57,7 +57,7 @@ public class MessageController {
 			m.addAttribute("errorMessage", "You cannot send message to yourself");
 			return "message/new_message";
 		}
-		SchoolUser sender = this.userRepository.findOne(getLoggedUser().getId());
+		User sender = this.userRepository.findOne(getLoggedUser().getId());
 		message.setSender(sender);
 		message.setSenderDescription(sender.getEmail());
 		message.setReceiverDescription(receiver.getUsername() + "<" + receiver.getEmail() + ">");
@@ -150,7 +150,7 @@ public class MessageController {
 		return this.messageRepository.findAllByReceiverIdAndChecked(getLoggedUser().getId(), 0).size();
 	}
 	
-	private SchoolUser getLoggedUser() {
+	private User getLoggedUser() {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String username = ((org.springframework.security.core.userdetails.User) principal).getUsername();
 		return this.userRepository.findOneByUsername(username);

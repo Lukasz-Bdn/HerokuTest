@@ -25,10 +25,10 @@ public class Message {
 	private String content;
 
 	@ManyToOne
-	private SchoolUser sender;
+	private User sender;
 
 	@ManyToOne
-	private SchoolUser receiver;
+	private User receiver;
 
 	@NotEmpty
 	@Email
@@ -71,19 +71,19 @@ public class Message {
 		this.content = content;
 	}
 
-	public SchoolUser getSender() {
+	public User getSender() {
 		return sender;
 	}
 
-	public void setSender(SchoolUser sender) {
+	public void setSender(User sender) {
 		this.sender = sender;
 	}
 
-	public SchoolUser getReceiver() {
+	public User getReceiver() {
 		return receiver;
 	}
 
-	public void setReceiver(SchoolUser receiver) {
+	public void setReceiver(User receiver) {
 		this.receiver = receiver;
 	}
 

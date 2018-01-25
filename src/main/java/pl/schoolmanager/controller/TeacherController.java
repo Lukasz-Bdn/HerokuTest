@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import pl.schoolmanager.bean.SessionManager;
 import pl.schoolmanager.entity.School;
-import pl.schoolmanager.entity.SchoolUser;
 import pl.schoolmanager.entity.Subject;
 import pl.schoolmanager.entity.Teacher;
+import pl.schoolmanager.entity.User;
 import pl.schoolmanager.entity.UserRole;
 import pl.schoolmanager.repository.MessageRepository;
 import pl.schoolmanager.repository.SchoolRepository;
@@ -85,12 +85,12 @@ public class TeacherController {
 		if (bindingResult.hasErrors()) {
 			return "teacher/user_teacher";
 		}
-		SchoolUser user = getLoggedUser();
+		User user = getLoggedUser();
 		UserRole userRole = new UserRole();
 		userRole.setUsername(user.getUsername());
 		userRole.setUserRole("ROLE_TEACHER");
 		userRole.setSchool(teacher.getSchool());
-		userRole.setSchoolUser(user);
+		userRole.setUser(user);
 		teacher.setUserRole(userRole);
 		this.teacherRepository.save(teacher);
 		HttpSession s = SessionManager.session();
@@ -111,7 +111,7 @@ public class TeacherController {
 		if (bindingResult.hasErrors()) {
 			return "teacher/user_teacher";
 		}
-		SchoolUser user = getLoggedUser();
+		User user = getLoggedUser();
 		Teacher thisTeacher = null;
 		UserRole thisUserRole = null;
 		List<UserRole> userRoles = user.getUserRoles();
@@ -195,7 +195,7 @@ public class TeacherController {
 
 
 	// Additional methods
-	private SchoolUser getLoggedUser() {
+	private User getLoggedUser() {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String username = ((org.springframework.security.core.userdetails.User) principal).getUsername();
 		return this.userRepo.findOneByUsername(username);
@@ -225,7 +225,7 @@ public class TeacherController {
 
 	@ModelAttribute("userSchools")
 	public List<School> userSchools() {
-		SchoolUser user = getLoggedUser();
+		User user = getLoggedUser();
 		List<School> schools = new ArrayList<>();
 		List<UserRole> roles = user.getUserRoles();
 		for (UserRole userRole : roles) {

@@ -23,8 +23,8 @@ public class UserRole {
 	@Column(name="user_role")
 	private String userRole;
 	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="schooluser_id")
-	private SchoolUser schoolUser;
+	@JoinColumn(name="user_id")
+	private User user;
 	
 	//school information
     @ManyToOne(fetch = FetchType.EAGER)
@@ -35,11 +35,11 @@ public class UserRole {
 		super();
 	}
 
-	public UserRole(String username, String userRole, SchoolUser schoolUser, School school) {
+	public UserRole(String username, String userRole, User user, School school) {
 		super();
 		this.username = username;
 		this.userRole = userRole;
-		this.schoolUser = schoolUser;
+		this.user = user;
 		this.school = school;
 	}
 
@@ -67,12 +67,12 @@ public class UserRole {
 		this.userRole = userRole;
 	}
 
-	public SchoolUser getSchoolUser() {
-		return schoolUser;
+	public User getUser() {
+		return user;
 	}
 
-	public void setSchoolUser(SchoolUser schoolUser) {
-		this.schoolUser = schoolUser;
+	public void setUser(User user) {
+		this.user = user;
 	}
 	
 	public School getSchool() {
