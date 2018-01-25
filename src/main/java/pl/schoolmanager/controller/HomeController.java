@@ -48,7 +48,7 @@ public class HomeController {
 	
 	
 	@RequestMapping("/db")
-	String db(Map<String, Object> model, Model m) {
+	String db(Model m) {
 		try (Connection connection = dataSource.getConnection()) {
 			Statement stmt = connection.createStatement();
 			stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)");
@@ -71,15 +71,12 @@ public class HomeController {
 				System.out.println(rs2.getString("name"));
 			}
 
-			
-			model.put("ticks2", output);
-			model.put("names2", output2);
 			m.addAttribute("ticks", output);
 			m.addAttribute("names", output2);
 			
 			return "home/db";
 		} catch (Exception e) {
-			model.put("message", e.getMessage());
+			m.addAttribute("message", e.getMessage());
 			System.out.println(e.getMessage());
 			return "home/error";
 		}
