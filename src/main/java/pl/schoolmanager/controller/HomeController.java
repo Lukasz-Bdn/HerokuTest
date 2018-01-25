@@ -6,15 +6,21 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.sql.DataSource;
+import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import pl.schoolmanager.entity.SchoolUser;
+import pl.schoolmanager.entity.UserRole;
 import pl.schoolmanager.repository.UserRepository;
 import pl.schoolmanager.repository.UserRoleRepository;
 
@@ -46,6 +52,32 @@ public class HomeController {
 	@PostMapping("login")
 	public String loginPost() {
 		return "redirect:/";
+	}
+	
+	@GetMapping("register")
+	public String registerGet(Model m) {
+		m.addAttribute("user", new SchoolUser());
+		return "home/register";
+	}
+	
+	@PostMapping("register")
+	@Transactional
+	public String registerPost(@Valid @ModelAttribute SchoolUser schoolUser, BindingResult bindingResult, Model m) {
+		if (bindingResult.hasErrors()) {
+			return "redirect:register";
+		}
+		if (!schoolUser.isPasswordCorrent(schoolUser.getConfirmPassword())) {
+			m.addAttribute("msg", "Please make sure that both passwords match!");
+			return "home/register";
+		}
+		UserRole userRole = new UserRole();
+		schoolUser.setEnabled(true);
+		userRole.setUsername(schoolUser.getUsername());
+		userRole.setSchoolUser(schoolUser);
+		userRole.setUserRole("ROLE_USER");
+		this.userRepo.save(schoolUser);
+		this.userRoleRepo.save(userRole);
+		return "redirect:/login";
 	}
 
 	@GetMapping("403")
