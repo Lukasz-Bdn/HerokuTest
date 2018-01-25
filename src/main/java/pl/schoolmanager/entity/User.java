@@ -24,7 +24,7 @@ import pl.schoolmanager.validator.EditUsernameValidator;
 import pl.schoolmanager.validator.NewUsernameValidator;
 
 @Entity
-@Table(name = "user")
+@Table(name = "schooluser")
 public class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
