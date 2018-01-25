@@ -31,24 +31,24 @@ import com.zaxxer.hikari.HikariDataSource;
 @Configuration
 @ComponentScan(basePackages = { "pl.schoolmanager.bean", "pl.schoolmanager.controller", "pl.schoolmanager.entity" })
 @EnableWebMvc
-@EnableTransactionManagement
-@EnableJpaRepositories(basePackages = { "pl.schoolmanager.repository" })
+//@EnableTransactionManagement
+//@EnableJpaRepositories(basePackages = { "pl.schoolmanager.repository" })
 // @Import({ SecurityConfig.class })
 public class AppConfig extends WebMvcConfigurerAdapter {
 	
 	@Value("${spring.datasource.url}")
 	private String dbUrl;
 	
-	@Bean
-	public DataSource dataSource() throws SQLException {
-		if (dbUrl == null || dbUrl.isEmpty()) {
-			return new HikariDataSource();
-		} else {
-			HikariConfig config = new HikariConfig();
-			config.setJdbcUrl(dbUrl);
-			return new HikariDataSource(config);
-		}
-	}
+//	@Bean
+//	public DataSource dataSource() throws SQLException {
+//		if (dbUrl == null || dbUrl.isEmpty()) {
+//			return new HikariDataSource();
+//		} else {
+//			HikariConfig config = new HikariConfig();
+//			config.setJdbcUrl(dbUrl);
+//			return new HikariDataSource(config);
+//		}
+//	}
 
 	
 	@Bean
@@ -78,11 +78,11 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 	// return emfb;
 	// }
 
-	@Bean
-	public JpaTransactionManager transactionManager(EntityManagerFactory emf) {
-		JpaTransactionManager tm = new JpaTransactionManager(emf);
-		return tm;
-	}
+//	@Bean
+//	public JpaTransactionManager transactionManager(EntityManagerFactory emf) {
+//		JpaTransactionManager tm = new JpaTransactionManager(emf);
+//		return tm;
+//	}
 
 	@Bean(name = "localeResolver")
 	public LocaleContextResolver getLocaleContextResolver() {
