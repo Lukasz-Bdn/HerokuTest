@@ -34,28 +34,28 @@ import org.springframework.web.servlet.view.JstlView;
 // @Import({ SecurityConfig.class })
 public class AppConfig extends WebMvcConfigurerAdapter {
 
-	@Bean(name = "dataSource")
-	public DriverManagerDataSource dataSource() {
-		String databaseUrl = System.getenv("DATABASE_URL");
-
-		URI dbUri;
-		try {
-			dbUri = new URI(databaseUrl);
-		} catch (URISyntaxException e) {
-			return null;
-		}
-
-		String username = dbUri.getUserInfo().split(":")[0];
-		String password = dbUri.getUserInfo().split(":")[1];
-		String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
-
-		DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
-		driverManagerDataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		driverManagerDataSource.setUrl(dbUrl);
-		driverManagerDataSource.setUsername(username);
-		driverManagerDataSource.setPassword(password);
-		return driverManagerDataSource;
-	}
+//	@Bean(name = "dataSource")
+//	public DriverManagerDataSource dataSource() {
+//		String databaseUrl = System.getenv("DATABASE_URL");
+//
+//		URI dbUri;
+//		try {
+//			dbUri = new URI(databaseUrl);
+//		} catch (URISyntaxException e) {
+//			return null;
+//		}
+//
+//		String username = dbUri.getUserInfo().split(":")[0];
+//		String password = dbUri.getUserInfo().split(":")[1];
+//		String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
+//
+//		DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
+//		driverManagerDataSource.setDriverClassName("com.mysql.jdbc.Driver");
+//		driverManagerDataSource.setUrl(dbUrl);
+//		driverManagerDataSource.setUsername(username);
+//		driverManagerDataSource.setPassword(password);
+//		return driverManagerDataSource;
+//	}
 
 	// @Bean(name = "dataSource")
 	// public BasicDataSource dataSource() throws URISyntaxException {
