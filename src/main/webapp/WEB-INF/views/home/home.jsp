@@ -10,7 +10,7 @@
 </head>
 <body>
 
-	<%@ include file="../jspf/home_menu.jspf"%>
+	<%@ include file="../jspf/main_menu.jspf"%>
 
 	<div class="jumbotron">
 
