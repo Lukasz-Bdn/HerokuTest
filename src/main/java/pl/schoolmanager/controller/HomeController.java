@@ -57,7 +57,7 @@ public class HomeController {
 		try (Connection connection = dataSource.getConnection()) {
 			Statement stmt = connection.createStatement();
 			stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)");
-			stmt.executeUpdate("CREATE TABLE IF NOT EXISTS names (name)");
+			stmt.executeUpdate("CREATE TABLE IF NOT EXISTS names (name varchar(80))");
 			stmt.executeUpdate("INSERT INTO ticks VALUES (now())");
 			stmt.executeUpdate("INSERT INTO names VALUES ('Lukasz')");
 			ResultSet rs = stmt.executeQuery("SELECT tick FROM ticks");
