@@ -55,7 +55,7 @@ public class HomeController {
 			stmt.executeUpdate("CREATE TABLE IF NOT EXISTS names (name varchar(80))");
 			stmt.executeUpdate("INSERT INTO ticks VALUES (now())");
 			stmt.executeUpdate("INSERT INTO names VALUES ('Lukasz')");
-			ResultSet rs = stmt.executeQuery("SELECT tick FROM ticks");
+//			ResultSet rs = stmt.executeQuery("SELECT tick FROM ticks");
 			ResultSet rs2 = stmt.executeQuery("SELECT name FROM names");
 
 //			ArrayList<String> output = new ArrayList<String>();
