@@ -67,7 +67,7 @@ public class HomeController {
 			ArrayList<String> output2 = new ArrayList<String>();
 			while (rs2.next()) {
 				output2.add("Read from DB: " + rs2.getString("name"));
-				System.out.println(rs.getString("name"));
+				System.out.println(rs2.getString("name"));
 			}
 
 			
