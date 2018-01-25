@@ -60,10 +60,10 @@ public class HomeController {
 			}
 
 			model.put("records", output);
-			return "db";
+			return "home/db";
 		} catch (Exception e) {
 			model.put("message", e.getMessage());
-			return "error";
+			return "home/error";
 		}
 	}
 
