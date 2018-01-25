@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalEntityManagerFactoryBean;
@@ -34,7 +35,7 @@ import com.zaxxer.hikari.HikariDataSource;
 @EnableWebMvc
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = { "pl.schoolmanager.repository" })
-// @Import({ SecurityConfig.class })
+@Import({ SecurityConfig.class })
 public class AppConfig extends WebMvcConfigurerAdapter {
 	
 	@Value("${spring.datasource.url}")
