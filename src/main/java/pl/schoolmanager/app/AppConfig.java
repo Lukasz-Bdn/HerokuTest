@@ -13,6 +13,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -29,6 +30,10 @@ import org.springframework.web.servlet.view.JstlView;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+
+import pl.schoolmanager.converter.SchoolConverter;
+import pl.schoolmanager.converter.StudentConverter;
+import pl.schoolmanager.converter.SubjectConverter;
 
 @Configuration
 @ComponentScan(basePackages = { "pl.schoolmanager.bean", "pl.schoolmanager.controller", "pl.schoolmanager.entity" })
@@ -97,4 +102,26 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 		return new LocalValidatorFactoryBean();
 	}
 
+	@Override
+	public void addFormatters(FormatterRegistry registry) {
+		registry.addConverter(getSubjectConverter());
+		registry.addConverter(getStudentConverter());
+		registry.addConverter(getSchoolConverter());
+	}
+
+	@Bean
+	public SubjectConverter getSubjectConverter() {
+		return new SubjectConverter();
+	}
+
+	@Bean
+	public StudentConverter getStudentConverter() {
+		return new StudentConverter();
+	}
+
+	@Bean
+	public SchoolConverter getSchoolConverter() {
+		return new SchoolConverter();
+	}
+	
 }
