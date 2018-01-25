@@ -2,7 +2,6 @@ package pl.schoolmanager.controller;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Map;
@@ -11,15 +10,11 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
 
 @Controller("/")
 public class HomeController {
@@ -76,13 +71,15 @@ public class HomeController {
 			}
 
 			
-			model.put("records", output);
+			model.put("ticks", output);
+			model.put("names", output2);
 			m.addAttribute("ticks", output);
 			m.addAttribute("names", output2);
 			
 			return "home/db";
 		} catch (Exception e) {
 			model.put("message", e.getMessage());
+			System.out.println(e.getMessage());
 			return "home/error";
 		}
 	}

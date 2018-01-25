@@ -15,8 +15,9 @@
 	<div class="jumbotron">
 
 		<h1>
-			DB view - a jednak blad!</b>.
+			DB view - a jednak blad!
 		</h1>
+		<c:out value="${message}"></c:out>
 	</div>
 
 
