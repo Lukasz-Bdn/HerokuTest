@@ -72,10 +72,10 @@ public class HomeController {
 			}
 
 			
-			model.put("ticks", output);
-			model.put("names", output2);
-			m.addAttribute("ticks2", output);
-			m.addAttribute("names2", output2);
+			model.put("ticks2", output);
+			model.put("names2", output2);
+			m.addAttribute("ticks", output);
+			m.addAttribute("names", output2);
 			
 			return "home/db";
 		} catch (Exception e) {
