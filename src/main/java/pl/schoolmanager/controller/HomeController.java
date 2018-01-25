@@ -2,6 +2,7 @@ package pl.schoolmanager.controller;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Map;
@@ -10,11 +11,15 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 
 @Controller("/")
 public class HomeController {
@@ -61,7 +66,7 @@ public class HomeController {
 			}
 
 			model.put("records", output);
-			m.addAttribute("result", output);
+			m.addAttribute("results", output);
 			return "home/db";
 		} catch (Exception e) {
 			model.put("message", e.getMessage());
@@ -69,5 +74,15 @@ public class HomeController {
 		}
 	}
 
-
+	@Bean
+	public DataSource dataSource() throws SQLException {
+		if (dbUrl == null || dbUrl.isEmpty()) {
+			return new HikariDataSource();
+		} else {
+			HikariConfig config = new HikariConfig();
+			config.setJdbcUrl(dbUrl);
+			return new HikariDataSource(config);
+		}
+	}
+	
 }

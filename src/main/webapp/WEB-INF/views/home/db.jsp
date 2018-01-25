@@ -17,7 +17,7 @@
 		<h1>
 			DB view</b>.
 		</h1>
-		<c:forEach items="result" var="record">
+		<c:forEach items="results" var="result">
 			<c:out value="${record}"></c:out>
 		</c:forEach>
 	</div>
