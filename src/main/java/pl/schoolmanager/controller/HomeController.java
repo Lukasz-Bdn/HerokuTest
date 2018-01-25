@@ -11,6 +11,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,7 +48,7 @@ public class HomeController {
 	
 	
 	@RequestMapping("/db")
-	String db(Map<String, Object> model) {
+	String db(Map<String, Object> model, Model m) {
 		try (Connection connection = dataSource.getConnection()) {
 			Statement stmt = connection.createStatement();
 			stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)");
@@ -60,6 +61,7 @@ public class HomeController {
 			}
 
 			model.put("records", output);
+			m.addAttribute("result", output);
 			return "home/db";
 		} catch (Exception e) {
 			model.put("message", e.getMessage());
