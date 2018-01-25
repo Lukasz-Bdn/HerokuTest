@@ -52,7 +52,7 @@ public class SchoolUser {
 	private String lastName;
 	
 	private boolean enabled;
-	@OneToMany(mappedBy="user", cascade = CascadeType.MERGE, fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="schoolUser", cascade = CascadeType.MERGE, fetch=FetchType.EAGER)
 	private List<UserRole> userRoles;
 
 	public SchoolUser() {
