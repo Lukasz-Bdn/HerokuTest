@@ -65,10 +65,12 @@ public class HomeController {
 			ArrayList<String> output = new ArrayList<String>();
 			while (rs.next()) {
 				output.add("Read from DB: " + rs.getTimestamp("tick"));
+				System.out.println(rs.getTimestamp("tick"));
 			}
 
 			model.put("records", output);
 			m.addAttribute("results", output);
+			
 			return "home/db";
 		} catch (Exception e) {
 			model.put("message", e.getMessage());
