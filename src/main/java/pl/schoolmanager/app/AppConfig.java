@@ -32,17 +32,17 @@ import org.springframework.web.servlet.view.JstlView;
 // @Import({ SecurityConfig.class })
 public class AppConfig extends WebMvcConfigurerAdapter {
 
-	 @Bean(name = "dataSource")
-	 public DriverManagerDataSource dataSource() {
-	 DriverManagerDataSource driverManagerDataSource = new
-	 DriverManagerDataSource();
-	 driverManagerDataSource.setDriverClassName("com.mysql.jdbc.Driver");
-	 driverManagerDataSource.setUrl("jdbc:mysql://localhost:3306/schoolmanager2");
-	 driverManagerDataSource.setUsername("root");
-	 driverManagerDataSource.setPassword("coderslab");
-	 return driverManagerDataSource;
-	 }
-
+//	 @Bean(name = "dataSource")
+//	 public DriverManagerDataSource dataSource() {
+//	 DriverManagerDataSource driverManagerDataSource = new
+//	 DriverManagerDataSource();
+//	 driverManagerDataSource.setDriverClassName("com.mysql.jdbc.Driver");
+//	 driverManagerDataSource.setUrl("jdbc:mysql://localhost:3306/schoolmanager2");
+//	 driverManagerDataSource.setUsername("root");
+//	 driverManagerDataSource.setPassword("coderslab");
+//	 return driverManagerDataSource;
+//	 }	 
+	 
 //	@Bean(name = "dataSource")
 //	public BasicDataSource dataSource() throws URISyntaxException {
 //		URI dbUri = new URI(System.getenv("CLEARDB_DATABASE_URL"));
@@ -79,12 +79,12 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 		configurer.enable();
 	}
 
-	@Bean
-	public LocalEntityManagerFactoryBean entityManagerFactory() {
-		LocalEntityManagerFactoryBean emfb = new LocalEntityManagerFactoryBean();
-		emfb.setPersistenceUnitName("schoolmanager2");
-		return emfb;
-	}
+//	@Bean
+//	public LocalEntityManagerFactoryBean entityManagerFactory() {
+//		LocalEntityManagerFactoryBean emfb = new LocalEntityManagerFactoryBean();
+//		emfb.setPersistenceUnitName("schoolmanager2");
+//		return emfb;
+//	}
 
 	@Bean
 	public JpaTransactionManager transactionManager(EntityManagerFactory emf) {
