@@ -53,8 +53,8 @@ public class HomeController {
 			Statement stmt = connection.createStatement();
 			stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)");
 			stmt.executeUpdate("CREATE TABLE IF NOT EXISTS names (name varchar(80))");
-			stmt.executeUpdate("INSERT INTO ticks VALUES (now())");
-			stmt.executeUpdate("INSERT INTO names VALUES ('Lukasz')");
+//			stmt.executeUpdate("INSERT INTO ticks VALUES (now())");
+//			stmt.executeUpdate("INSERT INTO names VALUES ('Lukasz')");
 			ResultSet rs = stmt.executeQuery("SELECT tick FROM ticks");
 
 			ArrayList<String> output = new ArrayList<String>();
@@ -74,8 +74,8 @@ public class HomeController {
 			
 			model.put("ticks", output);
 			model.put("names", output2);
-			m.addAttribute("ticks", output);
-			m.addAttribute("names", output2);
+			m.addAttribute("ticks2", output);
+			m.addAttribute("names2", output2);
 			
 			return "home/db";
 		} catch (Exception e) {
