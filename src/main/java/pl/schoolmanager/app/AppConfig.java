@@ -1,5 +1,7 @@
 package pl.schoolmanager.app;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Locale;
 
 import javax.persistence.EntityManagerFactory;
@@ -32,32 +34,44 @@ import org.springframework.web.servlet.view.JstlView;
 // @Import({ SecurityConfig.class })
 public class AppConfig extends WebMvcConfigurerAdapter {
 
-//	 @Bean(name = "dataSource")
-//	 public DriverManagerDataSource dataSource() {
-//	 DriverManagerDataSource driverManagerDataSource = new
-//	 DriverManagerDataSource();
-//	 driverManagerDataSource.setDriverClassName("com.mysql.jdbc.Driver");
-//	 driverManagerDataSource.setUrl("jdbc:mysql://localhost:3306/schoolmanager2");
-//	 driverManagerDataSource.setUsername("root");
-//	 driverManagerDataSource.setPassword("coderslab");
-//	 return driverManagerDataSource;
-//	 }	 
-	 
-//	@Bean(name = "dataSource")
-//	public BasicDataSource dataSource() throws URISyntaxException {
-//		URI dbUri = new URI(System.getenv("CLEARDB_DATABASE_URL"));
-//
-//		String username = dbUri.getUserInfo().split(":")[0];
-//		String password = dbUri.getUserInfo().split(":")[1];
-//		String dbUrl = "jdbc:mysql://" + dbUri.getHost() + dbUri.getPath();
-//
-//		BasicDataSource basicDataSource = new BasicDataSource();
-//		basicDataSource.setUrl(dbUrl);
-//		basicDataSource.setUsername(username);
-//		basicDataSource.setPassword(password);
-//
-//		return basicDataSource;
-//	}
+	@Bean(name = "dataSource")
+	public DriverManagerDataSource dataSource() {
+		String databaseUrl = System.getenv("DATABASE_URL");
+
+		URI dbUri;
+		try {
+			dbUri = new URI(databaseUrl);
+		} catch (URISyntaxException e) {
+			return null;
+		}
+
+		String username = dbUri.getUserInfo().split(":")[0];
+		String password = dbUri.getUserInfo().split(":")[1];
+		String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
+
+		DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
+		driverManagerDataSource.setDriverClassName("com.mysql.jdbc.Driver");
+		driverManagerDataSource.setUrl(dbUrl);
+		driverManagerDataSource.setUsername(username);
+		driverManagerDataSource.setPassword(password);
+		return driverManagerDataSource;
+	}
+
+	// @Bean(name = "dataSource")
+	// public BasicDataSource dataSource() throws URISyntaxException {
+	// URI dbUri = new URI(System.getenv("CLEARDB_DATABASE_URL"));
+	//
+	// String username = dbUri.getUserInfo().split(":")[0];
+	// String password = dbUri.getUserInfo().split(":")[1];
+	// String dbUrl = "jdbc:mysql://" + dbUri.getHost() + dbUri.getPath();
+	//
+	// BasicDataSource basicDataSource = new BasicDataSource();
+	// basicDataSource.setUrl(dbUrl);
+	// basicDataSource.setUsername(username);
+	// basicDataSource.setPassword(password);
+	//
+	// return basicDataSource;
+	// }
 
 	@Bean
 	public ViewResolver viewResolver() {
@@ -79,12 +93,12 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 		configurer.enable();
 	}
 
-//	@Bean
-//	public LocalEntityManagerFactoryBean entityManagerFactory() {
-//		LocalEntityManagerFactoryBean emfb = new LocalEntityManagerFactoryBean();
-//		emfb.setPersistenceUnitName("schoolmanager2");
-//		return emfb;
-//	}
+	// @Bean
+	// public LocalEntityManagerFactoryBean entityManagerFactory() {
+	// LocalEntityManagerFactoryBean emfb = new LocalEntityManagerFactoryBean();
+	// emfb.setPersistenceUnitName("schoolmanager2");
+	// return emfb;
+	// }
 
 	@Bean
 	public JpaTransactionManager transactionManager(EntityManagerFactory emf) {
