@@ -1,20 +1,17 @@
 package pl.schoolmanager.app;
 
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Locale;
 
 import javax.persistence.EntityManagerFactory;
 import javax.validation.Validator;
 
-import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
+//import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
-import org.springframework.orm.jpa.LocalEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.LocaleContextResolver;
@@ -35,19 +32,19 @@ import org.springframework.web.servlet.view.JstlView;
 // @Import({ SecurityConfig.class })
 public class AppConfig extends WebMvcConfigurerAdapter {
 
-    @Bean
-    public BasicDataSource dataSource() throws URISyntaxException {
-        String dbUrl = System.getenv("JDBC_DATABASE_URL");
-        String username = System.getenv("JDBC_DATABASE_USERNAME");
-        String password = System.getenv("JDBC_DATABASE_PASSWORD");
-
-        BasicDataSource basicDataSource = new BasicDataSource();
-        basicDataSource.setUrl(dbUrl);
-        basicDataSource.setUsername(username);
-        basicDataSource.setPassword(password);
-
-        return basicDataSource;
-    }
+//    @Bean
+//    public BasicDataSource dataSource() throws URISyntaxException {
+//        String dbUrl = System.getenv("JDBC_DATABASE_URL");
+//        String username = System.getenv("JDBC_DATABASE_USERNAME");
+//        String password = System.getenv("JDBC_DATABASE_PASSWORD");
+//
+//        BasicDataSource basicDataSource = new BasicDataSource();
+//        basicDataSource.setUrl(dbUrl);
+//        basicDataSource.setUsername(username);
+//        basicDataSource.setPassword(password);
+//
+//        return basicDataSource;
+//    }
 
 	@Bean
 	public ViewResolver viewResolver() {
