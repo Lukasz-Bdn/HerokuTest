@@ -55,14 +55,14 @@ public class HomeController {
 			stmt.executeUpdate("CREATE TABLE IF NOT EXISTS names (name varchar(80))");
 			stmt.executeUpdate("INSERT INTO ticks VALUES (now())");
 			stmt.executeUpdate("INSERT INTO names VALUES ('Lukasz')");
-//			ResultSet rs = stmt.executeQuery("SELECT tick FROM ticks");
+			ResultSet rs = stmt.executeQuery("SELECT tick FROM ticks");
 			ResultSet rs2 = stmt.executeQuery("SELECT name FROM names");
 
-//			ArrayList<String> output = new ArrayList<String>();
-//			while (rs.next()) {
-//				output.add("Read from DB: " + rs.getTimestamp("tick"));
-//				System.out.println(rs.getTimestamp("tick"));
-//			}
+			ArrayList<String> output = new ArrayList<String>();
+			while (rs.next()) {
+				output.add("Read from DB: " + rs.getTimestamp("tick"));
+				System.out.println(rs.getTimestamp("tick"));
+			}
 
 			ArrayList<String> output2 = new ArrayList<String>();
 			while (rs2.next()) {
@@ -71,9 +71,9 @@ public class HomeController {
 			}
 
 			
-//			model.put("ticks", output);
+			model.put("ticks", output);
 			model.put("names", output2);
-//			m.addAttribute("ticks", output);
+			m.addAttribute("ticks", output);
 			m.addAttribute("names", output2);
 			
 			return "home/db";
