@@ -27,9 +27,9 @@ public class HomeController {
 	@Value("${spring.datasource.url}")
 	private String dbUrl;
 
-	@Autowired
-	private DataSource dataSource;
-
+//	@Autowired
+//	private DataSource dataSource;
+//
 	
 	@GetMapping("/")
 	public String home() {
