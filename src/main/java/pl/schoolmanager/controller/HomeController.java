@@ -27,9 +27,9 @@ public class HomeController {
 	@Value("${spring.datasource.url}")
 	private String dbUrl;
 
-//	@Autowired
-//	private DataSource dataSource;
-//
+	@Autowired
+	private DataSource dataSource;
+
 	
 	@GetMapping("/")
 	public String home() {
@@ -71,17 +71,6 @@ public class HomeController {
 		} catch (Exception e) {
 			model.put("message", e.getMessage());
 			return "home/error";
-		}
-	}
-
-	@Bean
-	public DataSource dataSource() throws SQLException {
-		if (dbUrl == null || dbUrl.isEmpty()) {
-			return new HikariDataSource();
-		} else {
-			HikariConfig config = new HikariConfig();
-			config.setJdbcUrl(dbUrl);
-			return new HikariDataSource(config);
 		}
 	}
 	
