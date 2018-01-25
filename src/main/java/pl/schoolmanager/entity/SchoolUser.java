@@ -25,7 +25,7 @@ import pl.schoolmanager.validator.NewUsernameValidator;
 
 @Entity
 @Table(name = "schooluser")
-public class User {
+public class SchoolUser {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
@@ -55,11 +55,11 @@ public class User {
 	@OneToMany(mappedBy="user", cascade = CascadeType.MERGE, fetch=FetchType.EAGER)
 	private List<UserRole> userRoles;
 
-	public User() {
+	public SchoolUser() {
 		super();
 	}
 
-	public User(String username, String password, String email, String firstName, String lastName, boolean enabled) {
+	public SchoolUser(String username, String password, String email, String firstName, String lastName, boolean enabled) {
 		super();
 		this.username = username;
 		this.setPassword(password);
