@@ -56,13 +56,14 @@ public class HomeController {
 			stmt.executeUpdate("INSERT INTO ticks VALUES (now())");
 			stmt.executeUpdate("INSERT INTO names VALUES ('Lukasz')");
 			ResultSet rs = stmt.executeQuery("SELECT tick FROM ticks");
-			ResultSet rs2 = stmt.executeQuery("SELECT name FROM names");
 
 			ArrayList<String> output = new ArrayList<String>();
 			while (rs.next()) {
 				output.add("Read from DB: " + rs.getTimestamp("tick"));
 				System.out.println(rs.getTimestamp("tick"));
 			}
+
+			ResultSet rs2 = stmt.executeQuery("SELECT name FROM names");
 
 			ArrayList<String> output2 = new ArrayList<String>();
 			while (rs2.next()) {

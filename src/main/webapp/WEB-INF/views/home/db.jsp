@@ -17,14 +17,17 @@
 		<h1>
 			DB view</b>.
 		</h1>
+		<ul>
 		<c:forEach items="${ticks}" var="record">
-			<c:out value="${record}"></c:out>
+			<li><c:out value="${record}"></c:out></li>
 		</c:forEach>
+		</ul>
 		
+		<ul>
 		<c:forEach items="${names}" var="record">
-			<c:out value="${record}"></c:out>
+			<li><c:out value="${record}"></c:out></li>
 		</c:forEach>
-		
+		</ul>
 		
 	</div>
 
