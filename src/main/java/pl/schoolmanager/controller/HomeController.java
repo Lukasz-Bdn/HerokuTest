@@ -70,14 +70,15 @@ public class HomeController {
 			}
 
 			ArrayList<String> output2 = new ArrayList<String>();
-			while (rs.next()) {
-				output2.add("Read from DB: " + rs.getTimestamp("tick"));
-				System.out.println(rs.getString("name") );
+			while (rs2.next()) {
+				output2.add("Read from DB: " + rs2.getString("name"));
+				System.out.println(rs.getString("name"));
 			}
 
 			
 			model.put("records", output);
-			m.addAttribute("results", output);
+			m.addAttribute("ticks", output);
+			m.addAttribute("names", output2);
 			
 			return "home/db";
 		} catch (Exception e) {
